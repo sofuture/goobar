@@ -7,12 +7,16 @@ endif
 SRC_DIR := src
 BIN_DIR := bin
 GOOBAR_BIN := $(BIN_DIR)/goobar
+SRC_FILES := $(shell find $(SRC_DIR) -type f -name "*.go")
+
+GOPATH ?= $(CURDIR)
+export GOPATH
 
 .PHONY: all clean test
 
 all: $(GOOBAR_BIN)
 
-$(GOOBAR_BIN): $(BIN_DIR)
+$(GOOBAR_BIN): $(BIN_DIR) $(SRC_FILES)
 	@(cd $(SRC_DIR); go build $(GO_OPTIONS) -o ../$@)
 	@echo $(GOOBAR_BIN) is created.
 
